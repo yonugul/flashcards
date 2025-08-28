@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Cards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="cardSection" style="display: none;">
+        <div class="card-container">
+            <div class="flashcard" id="flashcard" onclick="flipCard()">
+                <div class="card-face card-front" id="cardFront">
+                    <div class="loading">Yükleniyor...</div>
+                </div>
+                <div class="card-face card-back" id="cardBack">
+                    <div class="loading">Yükleniyor...</div>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="navigation">
+            <button class="nav-btn" onclick="previousCard()" id="prevBtn">‹ Önceki</button>
+            <div class="card-counter">
+                <span id="currentCard">1</span> / <span id="totalCards">0</span>
+            </div>
+            <button class="nav-btn" onclick="nextCard()" id="nextBtn">Sonraki ›</button>
+        </div>
+    </div>
+    <div class="controls">
+        <button class="btn btn-secondary" onclick="shuffleCards()" id="shuffleBtn" disabled>
+            Kartları Karıştır
+        </button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
