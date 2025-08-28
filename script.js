@@ -1,4 +1,5 @@
 let flashcards = [];
+let originalCards = [];
 let currentIndex = 0;
 let isFlipped = false;
 let totalCards = 100;
@@ -17,6 +18,7 @@ function initCards(totalCount) {
       back: `images/back/${i}.png`,
     });
   }
+  originalCards = [...flashcards];
 }
 
 function loadCards() {
@@ -24,6 +26,8 @@ function loadCards() {
     document.getElementById("cardSection").style.display = "block";
     document.getElementById("shuffleBtn").disabled = false;
     document.getElementById("shuffleBtn").style.display = "inline-block";
+    document.getElementById("resetBtn").disabled = false;
+    document.getElementById("resetBtn").style.display = "inline-block";
     document.getElementById("totalCards").textContent = flashcards.length;
     currentIndex = 0;
     loadCard(currentIndex);
@@ -33,6 +37,8 @@ function loadCards() {
     document.getElementById("cardSection").style.display = "none";
     document.getElementById("shuffleBtn").disabled = true;
     document.getElementById("shuffleBtn").style.display = "none";
+    document.getElementById("resetBtn").disabled = true;
+    document.getElementById("resetBtn").style.display = "none";
   }
 }
 
@@ -119,6 +125,14 @@ function shuffleCards() {
     const j = Math.floor(Math.random() * (i + 1));
     [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
   }
+  currentIndex = 0;
+  loadCard(currentIndex);
+  updateNavigation();
+  updateProgress();
+}
+
+function resetCards() {
+  flashcards = [...originalCards]; // Orijinal listeyi geri yükle
   currentIndex = 0;
   loadCard(currentIndex);
   updateNavigation();
