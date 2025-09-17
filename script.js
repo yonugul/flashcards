@@ -77,17 +77,21 @@ function loadImage(imagePath, element) {
 }
 
 function flipCard() {
+  stopSound();
   const flashcard = document.getElementById("flashcard");
   isFlipped = !isFlipped;
 
   if (isFlipped) {
     flashcard.classList.add("flipped");
+    playSound(currentIndex);
   } else {
     flashcard.classList.remove("flipped");
+    playSound(currentIndex);
   }
 }
 
 function nextCard() {
+  stopSound();
   if (currentIndex < flashcards.length - 1) {
     currentIndex++;
     loadCard(currentIndex);
@@ -97,6 +101,7 @@ function nextCard() {
 }
 
 function previousCard() {
+  stopSound();
   if (currentIndex > 0) {
     currentIndex--;
     loadCard(currentIndex);
@@ -121,6 +126,7 @@ function updateProgress() {
 }
 
 function shuffleCards() {
+  stopSound();
   for (let i = flashcards.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
@@ -132,6 +138,7 @@ function shuffleCards() {
 }
 
 function resetCards() {
+  stopSound();
   flashcards = [...originalCards]; // Orijinal listeyi geri yükle
   currentIndex = 0;
   loadCard(currentIndex);
@@ -157,3 +164,26 @@ document.addEventListener("keydown", function (e) {
       break;
   }
 });
+
+let currentAudio = null;
+
+function playSound(index) {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+
+  const soundPath = `sounds/${flashcards[index].id}.mp3`;
+  currentAudio = new Audio(soundPath);
+  currentAudio.play().catch((err) => {
+    console.error("Ses çalınamadı:", err);
+  });
+}
+
+function stopSound() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
+  }
+}
